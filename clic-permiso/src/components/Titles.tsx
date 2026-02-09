@@ -1,27 +1,32 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 
 interface TitleProps {
   nombre: string
-  onClick?: () => void
-  isSelected?: boolean
+  to?: string
 }
 
-export const Titles = ({ nombre, onClick, isSelected = false }: TitleProps) => {
-  if (onClick) {
+export const Titles = ({ nombre, to }: TitleProps) => {
+  if (to) {
     return (
-      <button
-        onClick={onClick}
-        style={{
+      <NavLink
+        to={to}
+        style={({ isActive }) => ({
+          display: 'block',
           padding: '10px',
           border: 'none',
-          background: isSelected ? '#ddd' : 'none',
+          background: isActive ? '#e6e6e6' : 'none',
           cursor: 'pointer',
           width: '100%',
-          textAlign: 'left'
-        }}
+          textAlign: 'left',
+          textDecoration: 'none',
+          color: isActive ? '#111' : 'inherit',
+          fontWeight: isActive ? 600 : 400,
+          borderLeft: isActive ? '4px solid #111' : '4px solid transparent'
+        })}
       >
         {nombre}
-      </button>
+      </NavLink>
     )
   }
 
